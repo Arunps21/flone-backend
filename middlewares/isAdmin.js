@@ -10,7 +10,8 @@ const isAdmin = async (req, res, next) => {
         .json({ status: 400, msg: "You need to login first" });
     }
     const decode = jwt.verify(token, process.env.JWT_KEY);
-    let admin = await adminModel.findOne({ _id: decode.id });
+    
+    let admin = await adminModel.findOne({ _id: decode.userId });
     if (!admin) {
       return res
         .status(400)
@@ -22,4 +23,4 @@ const isAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = isAdmin
+module.exports = {isAdmin}
