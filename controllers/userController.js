@@ -30,10 +30,9 @@ const userRegister = async (req, res) => {
         email,
         password: hash,
       });
-      res.status(201).json({ status: 201, msg: "User registed" });
+      const token = tokenCreation(createdUser._id);
+      res.status(201).json({ status: 201, msg: "User registed", token});
     });
-
-    const token = tokenCreation(createdUser);
 
   } catch (err) {
     console.log(err.message);
@@ -52,8 +51,8 @@ const userLogin = async (req, res) => {
       if (!result) {
         res.status(400).json({ staus: 400, msg: "Incorrect passowrd" });
       } else {
-        const token = tokenCreation(user)
-        res.status(200).json({ status: 200, msg: "Login success" });
+        const token = tokenCreation(user._id)
+        res.status(200).json({ status: 200, msg: "Login success", token });
       }
     
   } catch (err) {
