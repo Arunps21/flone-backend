@@ -1,5 +1,4 @@
 const adminModel = require("../models/adminModel");
-const validator = require("validator");
 const bcrypt = require("bcrypt");
 const salt = 10;
 const { tokenCreation } = require("../utils/generateToken");
