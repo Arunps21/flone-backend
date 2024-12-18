@@ -6,16 +6,15 @@ const port = process.env.PORT || 9000
 const db = require("./config/mongoConnection")
 const connectCloudinary = require("./config/cloudinaryConfiguration")
 const userRoutes = require("./routes/userRoutes")
+const productRoutes = require("./routes/productRoutes") 
 
 app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({extended:true}))
 connectCloudinary()
 app.use("/user",userRoutes)
+app.use("/product",productRoutes)
 
-app.get("/",(req,res)=>{
-    res.send("Working")
-})
 
 app.listen(port,()=>{
     console.log(`Server run at http://localhost:${port}`)
