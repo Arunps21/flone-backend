@@ -12,14 +12,14 @@ const addProduct = async (req, res) => {
       sizes,
       bestSeller,
     } = req.body;
-
+    
     if (!req.file) {
-      return res.status(400).json({ status: 400, msg: "Image is required" });
+      return res.status(200).json({ success: false, msg: "Image is required" });
     }
 
     const uploadResult = await cloudinary.uploader.upload(req.file.path);
     if (!uploadResult || !uploadResult.url) {
-      return res.status(500).json({ status: 500, msg: "Image upload failed" });
+      return res.status(500).json({ success: false, msg: "Image upload failed" });
     }
 
     const product = await productModel.create({
@@ -34,20 +34,20 @@ const addProduct = async (req, res) => {
     });
 
     res.status(201).json({
-      status: 201,
+      success: true,
       msg: "Product added successfully",
       product,
     });
   } catch (err) {
     console.log(err.message);
-    res.status(500).json({ status: 500, msg: "Failed to add product" });
+    res.status(500).json({ success: false, msg: "Failed to add product" });
   }
 };
 
 const viewProduct = async (req, res) => {
   try {
     let product = await productModel.find();
-    product.length > 0 ? res.status(200).json({ status: 200, product }) : [];
+    product.length > 0 ? res.status(200).json({ success:true, product }) : res.status(200).json({ success:false, msg:"No Products found" });
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ status: 500, msg: "Failed to load products" });

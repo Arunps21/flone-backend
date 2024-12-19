@@ -4,7 +4,7 @@ const app = express()
 require("dotenv").config()
 const port = process.env.PORT || 9000
 const db = require("./config/mongoConnection")
-const connectCloudinary = require("./config/cloudinaryConfiguration")
+const {connectCloudinary} = require("./config/cloudinaryConfiguration")
 const userRoutes = require("./routes/userRoutes")
 const productRoutes = require("./routes/productRoutes") 
 const adminRoutes = require("./routes/adminRoutes")

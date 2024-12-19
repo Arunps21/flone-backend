@@ -30,17 +30,17 @@ const adminRegister = async (req, res) => {
 
 const adminLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body;    
     let admin = await adminModel.findOne({ email });
     if (!admin) {
-      return res.status(400).json({ status: 400, msg: "Invalid credentials" });
+      return res.status(200).json({ success:false, msg: "Invalid credentials" });
     }
     let result = await bcrypt.compare(password, admin.password);
     if (!result) {
-      res.status(400).json({ staus: 400, msg: "Invalid credentials" });
+      res.status(200).json({ success:false, msg: "Invalid credentials" });
     } else {
       const token = tokenCreation(admin._id);
-      res.status(200).json({ status: 200, msg: "Login success", token });
+      res.status(201).json({ status: 200, msg: "Login success", token });
     }
   } catch (err) {
     console.log(err.message);
