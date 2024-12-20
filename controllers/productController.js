@@ -57,11 +57,13 @@ const viewProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     const { id } = req.body;
+    console.log(req.body);
+    
     await productModel.findByIdAndDelete(id);
-    res.status(200).json({ status: 200, msg: "Product deleted successfully" });
+    res.status(200).json({ success : true, msg: "Product deleted successfully" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ status: 500, msg: "Failed to delete product" });
+    res.status(500).json({ success : false, msg: "Failed to delete product" });
   }
 };
 
